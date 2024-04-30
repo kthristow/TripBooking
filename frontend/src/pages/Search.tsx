@@ -93,7 +93,7 @@ const Search = () => {
           />
         </div>
       </div>
-      <div className="flex flex-col gap-5">
+      <div key={"hotels"} className="flex flex-col gap-5">
         <div className="flex justify-between items-center">
           <span className="text-xl font-bold">
             {hotelData?.pagination.total} Hotels found
@@ -104,12 +104,12 @@ const Search = () => {
             className="p-2 border rounded-md"
             onChange={(event) => setSortOption(event.target.value)}
           >
-            <option value="">Sort By</option>
-            <option value="starRating">Star Rating</option>
-            <option value="pricePerNightAsc">
+            <option key={""} value="">Sort By</option>
+            <option key={"starRating"} value="starRating">Star Rating</option>
+            <option key={"pricePerNightAsc"} value="pricePerNightAsc">
               Price Per Night (low to high)
             </option>
-            <option value="pricePerNightDesc">
+            <option key={"pricePerNightDesc"} value="pricePerNightDesc">
               Price Per Night (high to low)
             </option>
           </select>
