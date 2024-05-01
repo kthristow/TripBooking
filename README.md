@@ -94,26 +94,8 @@ cd TripBooking
    - Create a new project (e.g e2e tests)
    - Create a new cluster and follow the instructions to set up a new database.
    - Once set up, obtain your MongoDB connection string and add it to the `MONGODB_CONNECTION_STRING` variable in your `.env.e2e` file.
-2. **Importing Test Data into MongoDB**:
 
-   - The repository contains a `data` folder at the root, which includes JSON files for a test user and a test hotel. You can import these into your MongoDB collections to quickly set up test data.
-   - **Locate the Test User File**: In the `data` folder, find the file containing the test user data (likely named something like `test-users.json`).
-   - **Open MongoDB Compass**: Launch MongoDB Compass and connect to your database.
-   - **Select the Database**: In Compass, select the database you are using for the automated tests (created in step 1).
-   - **Import User Data**:
-     - Navigate to the `users` collection within your database. Create it if it doesn't exist
-     - Click on the "Add Data" button and select "Import File".
-     - Browse to the location of your `test-users.json` file and select it.
-     - Choose JSON as the file format and click "Import".
-     - The test user data will be added to the `users` collection.
-     - user login: 1@1.com/password123
-   - **Locate the Test Hotel File**:
-     - Navigate to the `hotels` collection within your database. Create it if it doesn't exist
-     - Repeat the import process as you did for the user data, but this time select the `test-hotel.json` file.
-     - Ensure the file format is set to JSON and click "Import".
-     - The test hotel data will be added to the `hotels` collection.
-
-3. **Running tests**
+2. **Running tests**
    - In VS Code install the [Playwright extension](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright)
    - Navigate to the `e2e-tests` directory.
    - Install dependencies: `npm install`.
