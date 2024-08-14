@@ -1,17 +1,41 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import * as apiClient from "../api-client";
 import { BsBuilding, BsMap } from "react-icons/bs";
 import { BiHotel, BiMoney, BiStar } from "react-icons/bi";
+import { useAppContext } from "../contexts/AppContext";
+import { useEffect, useState } from "react";
 
 const MyHotels = () => {
   const { data: hotelData } = useQuery(
     "fetchMyHotels",
     apiClient.fetchMyHotels,
     {
-      onError: () => {},
+      onError: () => { },
     }
   );
+  const [managedData, setManagedData] = useState(hotelData);
+
+  useEffect(() => {
+    setManagedData(hotelData);
+  },[]);
+
+  const { showToast } = useAppContext();
+  const { mutate } = useMutation(apiClient.deleteMyHotel, {
+    onSuccess: (data) => {
+      showToast({ message: "Hotel Deleted!", type: "SUCCESS" });
+      const nextData = managedData?.filter(x => x._id !== data._id);
+      setManagedData(nextData);
+    },
+    onError: () => {
+      showToast({ message: "Error Deleting Hotel", type: "ERROR" });
+    },
+  });
+
+  const handleDelete = (id: string) => {
+    mutate(id);
+  };
+
 
   if (!hotelData) {
     return <span>No hotels found</span>;
@@ -29,7 +53,7 @@ const MyHotels = () => {
         </Link>
       </span>
       <div className="grid grid-cols-1 gap-8">
-        {hotelData?.map((hotel) => (
+        {managedData?.map((hotel) => (
           <div className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5">
             <h2 className="text-2xl font-bold">{hotel.name}</h2>
             <div className="whitespace-pre-line">{hotel.description}</div>
@@ -61,6 +85,7 @@ const MyHotels = () => {
               >
                 View Details
               </Link>
+              <button onClick={() => handleDelete(hotel._id)} className="flex bg-blue-600 text-white text-xl font-bold p-2 hover:bg-blue-500 ml-[20px]">Delete</button>
             </span>
           </div>
         ))}

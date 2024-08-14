@@ -90,6 +90,19 @@ export const addMyHotel = async (hotelFormData: FormData) => {
   return response.json();
 };
 
+export const deleteMyHotel = async (id: string) => {
+  const response = await fetch(`${API_BASE_URL}/api/my-hotels/${id}`, {
+    method: "DELETE",
+    credentials: "include"
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete the hotel");
+  }
+
+  return response.json();
+};
+
 export const fetchMyHotels = async (): Promise<HotelType[]> => {
   const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
     credentials: "include",

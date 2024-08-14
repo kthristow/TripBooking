@@ -117,6 +117,19 @@ router.put(
   }
 );
 
+router.delete("/:id", verifyToken, async (req: Request, res: Response) => {
+  const id = req.params.id.toString();
+  try {
+    const hotel = await Hotel.findOneAndDelete({
+      _id: id,
+      userId: req.userId,
+    });
+    res.json(hotel);
+  } catch (error) {
+    res.status(500).json({ message: "Error delete the hotel" });
+  }
+});
+
 async function uploadImages(imageFiles: Express.Multer.File[]) {
   const uploadPromises = imageFiles.map(async (image) => {
     const b64 = Buffer.from(image.buffer).toString("base64");
