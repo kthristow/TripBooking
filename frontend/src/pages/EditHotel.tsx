@@ -21,7 +21,7 @@ export const EditHotel = () => {
   const { mutate, isLoading } = useMutation(apiClient.updateMyHotelById, {
     onSuccess: () => {
       showToast({ message: "Hotel Saved!", type: "SUCCESS" });
-      navigate('/my-hotels');
+      navigate('/');
     },
     onError: () => {
       showToast({ message: "Error Saving Hotel", type: "ERROR" });
